@@ -106,7 +106,7 @@ p {
 }
 
 .completed {
-  color: ;
+  color: #7d494e;;
   text-decoration: line-through;
   cursor: pointer;
 }
