@@ -6,7 +6,8 @@ const app = express();
 
 
 // Define allowed origins 
-const allowedOrigins = ['http://localhost:3000']; 
+const allowedOrigins = ['http://localhost:3000', 'https://letss.netlify.app'];
+
 const corsOptions = { 
   origin: (origin, callback) => { 
     if (allowedOrigins.includes(origin) || !origin) { 
@@ -24,7 +25,7 @@ app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 
-  // Connect to MongoDB using the environment variable
+// Connect to MongoDB using the environment variable
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
