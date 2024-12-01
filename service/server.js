@@ -1,23 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
 const bodyParser = require('body-parser');
-const { createProxyMiddleware } = require('http-proxy-middleware'); // Import proxy middleware
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
-const corsOptions = {
-  origin: 'https://letss.netlify.app', 
-  credentials: true,
-  optionSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // Proxy setup for API requests
 app.use('/api', createProxyMiddleware({
   target: 'https://letstodoapp-b09ac55a7532.herokuapp.com',
   changeOrigin: true,
+  pathRewrite: {
+    '^/api': '', // Remove '/api' from the URL when forwarding to the target
+  },
 }));
 
 // Connect to MongoDB using the environment variable
