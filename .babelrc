@@ -16,6 +16,4 @@
       "@babel/plugin-transform-react-display-name",
       "@babel/plugin-transform-runtime"
     ]
-  }
-  
-  
+  } 
