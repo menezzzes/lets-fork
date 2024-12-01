@@ -48,27 +48,22 @@ app.get('/tasks', async (req, res) => {
 });
 
 // Add a task
+
 app.post('/tasks', async (req, res) => {
-    try {
-      console.log("Request body received:", req.body);
-  
-      const { title, completed } = req.body;
-      if (!title) {
-        return res.status(400).json({ message: "Title is required" });
-      }
-  
-      const newTask = new Task({ title, completed: completed || false });
-      console.log("Saving task to database:", newTask);
-  
-      const savedTask = await newTask.save();
-      console.log("Task saved successfully:", savedTask);
-  
-      res.status(201).json(savedTask);
-    } catch (error) {
-      console.error("Error creating task:", error);
-      res.status(500).json({ message: "Failed to create task", error: error.message });
+  try {
+    const { title, completed } = req.body;
+    if (!title) {
+      return res.status(400).json({ message: "Title is required" });
     }
-  });
+
+    const newTask = new Task({ title, completed: completed || false });
+    const savedTask = await newTask.save();
+    res.status(201).json(savedTask);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to create task", error: error.message });
+  }
+});
+
   
   
 
