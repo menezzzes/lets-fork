@@ -6,13 +6,18 @@ const app = express();
 
 
 app.use(cors()); 
+
+// Custom CORS Headers (Optional) 
+app.use((req, res, next) => {
+   res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Update this with your deployed frontend URL if needed 
+   res.header('Access-Control-Allow-Credentials', 'true'); 
+   res.header('Access-Control-Max-Age', '1800'); 
+   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'); 
+   res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, PATCH, OPTIONS');
+    next();
+});
+
 app.use(bodyParser.json());
-
-
-app.use((req, res, next) => { 
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'); next(); });
-
 
   // Connect to MongoDB using the environment variable
 mongoose.connect(process.env.MONGODB_URI, {
