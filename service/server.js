@@ -6,7 +6,7 @@ const app = express();
 
 
 // Define allowed origins 
-const allowedOrigins = ['http://localhost:3000', 'https://letss.netlify.app'];
+const allowedOrigins = ['https://letss.netlify.app'];
 
 const corsOptions = { 
   origin: (origin, callback) => { 
