@@ -86,14 +86,14 @@ export const TodoWapper = () => {
     return (
         <div className="TodoWrapper">
         <h1>let's!</h1>
-        <p>helping you to achieve your goals</p>
+        <p><i>✦ your to-do list buddy. helping you to get on track ✦</i></p>
         <TodoForm addTodo={addTodo} />
 
         {/* Dropdown to filter todos */}
         <select onChange={handleFilterChange} value={filter}>
-            <option value="all">All</option>
-            <option value="completed">Done</option>
-            <option value="incomplete">To do</option>
+            <option value="all">view all</option>
+            <option value="completed">complete</option>
+            <option value="incomplete">pending</option>
         </select>
 
         {/* Display todos */}
