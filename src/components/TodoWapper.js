@@ -9,8 +9,10 @@ export const TodoWapper = () => {
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState("all");
 
-  // API base URL (adjust this to your backend URL)
-  const API_URL = 'http://localhost:5001'; 
+  // API base URL
+  const API_URL = process.env.REACT_APP_API_URL;
+
+  console.log('API URL:', process.env.REACT_APP_API_URL);
 
   // Fetch todos from the API
   const fetchTodos = async () => {
