@@ -1,28 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { TodoForm } from './TodoForm';
 import { EditTodoForm } from './EditTodoForm';
 import { Todo } from './Todo';
 import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL;
+
+console.log('API URL:', process.env.REACT_APP_API_URL);
+console.log('API URL:', API_URL);
 
 export const TodoWapper = () => {
 
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState("all");
 
-  // API base URL
-  const API_URL = process.env.REACT_APP_API_URL;
-
-  console.log('API URL:', process.env.REACT_APP_API_URL);
+  
 
   // Fetch todos from the API
-  const fetchTodos = async () => {
-    try {
+  const fetchTodos = useCallback(async () => { 
+    try { 
       const response = await axios.get(`${API_URL}/tasks`);
       setTodos(response.data);
-    } catch (error) {
+     } catch (error) { 
       console.error("Error fetching todos:", error);
-    }
-  };
+     } 
+  }, [API_URL]);
   
 
   const addTodo = async (title) => {
@@ -83,7 +85,7 @@ export const TodoWapper = () => {
   // Fetch todos on initial render
   useEffect(() => {
     fetchTodos();
-  }, []);
+  }, [fetchTodos]);
 
     return (
         <div className="TodoWrapper">
