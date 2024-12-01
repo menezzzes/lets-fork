@@ -2,27 +2,31 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
 
-// Initialize Express
+dotenv.config();
+
 const app = express();
 
-// Enable CORS for all origins (you can change this to a specific URL for production)
-app.use(cors()); // Allow all origins for development
-// For production, you can specify the allowed origin:
-// app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors()); 
 
-// Middleware to parse JSON request bodies
 app.use(bodyParser.json());
 
-// Connect to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/todo', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 5000,
-}).then(() => console.log('Connected to MongoDB'))
-  .catch((error) => console.error('Could not connect to MongoDB:', error));
-
-
+// Connect to MongoDB using the environment variable
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }).then(() => {
+    console.log('Connected to MongoDB');
+  }).catch((error) => {
+    console.error('Error connecting to MongoDB', error);
+  });
+  
+const PORT = process.env.PORT || 5000;
+  
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 
 // Define a Task schema and model
 const taskSchema = new mongoose.Schema({
@@ -31,7 +35,7 @@ const taskSchema = new mongoose.Schema({
 });
 const Task = mongoose.model('Task', taskSchema);
 
-// API Routes
+// ******* API Routes *******
 
 // Get all tasks
 app.get('/tasks', async (req, res) => {
@@ -43,17 +47,7 @@ app.get('/tasks', async (req, res) => {
   }
 });
 
-// Create a new task
-// app.post('/tasks', async (req, res) => {
-//   try {
-//     const newTask = new Task(req.body);
-//     await newTask.save();
-//     res.json(newTask);
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error creating task' });
-//   }
-// });
-
+// Add a task
 app.post('/tasks', async (req, res) => {
     try {
       console.log("Request body received:", req.body);
@@ -96,10 +90,4 @@ app.delete('/tasks/:id', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Error deleting task' });
   }
-});
-
-// Start the server
-const PORT = 5001;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
 });
