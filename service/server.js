@@ -4,16 +4,24 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
 
+const corsOptions = {
+  origin: '*', 
+  credentials: true, // Access-Control-Allow-Credentials: true
+  optionSuccessStatus: 200 // Some legacy browsers choke on 204
+};
 
-const corsOptions ={
-   origin:'*', 
-   credentials:true,            //access-control-allow-credentials:true
-   optionSuccessStatus:200,
-}
+// Apply CORS middleware
+app.use(cors(corsOptions));
 
-app.use(cors(corsOptions)) // Use this after the variable declaration
-
-
+// Custom CORS Headers (Optional)
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // Allow all origins
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Max-Age', '1800');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, PATCH, OPTIONS');
+  next();
+});
 
 app.use(bodyParser.json());
 
