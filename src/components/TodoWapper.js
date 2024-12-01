@@ -24,7 +24,7 @@ export const TodoWapper = () => {
      } catch (error) { 
       console.error("Error fetching todos:", error);
      } 
-  }, [API_URL]);
+  }, []);
   
 
   const addTodo = async (title) => {
