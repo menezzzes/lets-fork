@@ -5,26 +5,14 @@ const bodyParser = require('body-parser');
 const app = express();
 
 
-// Define allowed origins 
-const allowedOrigins = ['https://letss.netlify.app'];
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
 
-const corsOptions = { 
-  origin: (origin, callback) => { 
-    if (allowedOrigins.includes(origin) || !origin) { 
-      callback(null, true); 
-    } else { 
-      callback(new Error('Not allowed by CORS'));
-     } 
-    }, 
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', 
-    credentials: true, 
-    optionsSuccessStatus: 200
-   }; 
-   
-// Apply CORS options 
-app.use(cors(corsOptions)); 
-// Handle preflight requests 
-app.options('*', cors(corsOptions));
+app.use(cors(corsOptions)) // Use this after the variable declaration
+
 
 
 app.use(bodyParser.json());
