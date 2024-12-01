@@ -4,9 +4,9 @@ import { EditTodoForm } from './EditTodoForm';
 import { Todo } from './Todo';
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL;
 
-console.log('API URL:', process.env.REACT_APP_API_URL);
+const API_URL = `${process.env.REACT_APP_API_URL}/api`;
+
 console.log('API URL:', API_URL);
 
 export const TodoWapper = () => {
