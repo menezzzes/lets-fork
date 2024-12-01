@@ -5,17 +5,22 @@ const bodyParser = require('body-parser');
 const app = express();
 
 
-app.use(cors()); 
-
-// Custom CORS Headers (Optional) 
-app.use((req, res, next) => {
-   res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Update this with your deployed frontend URL if needed 
-   res.header('Access-Control-Allow-Credentials', 'true'); 
-   res.header('Access-Control-Max-Age', '1800'); 
-   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'); 
-   res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, PATCH, OPTIONS');
-    next();
-});
+// Define allowed origins 
+const allowedOrigins = ['http://localhost:3000']; 
+const corsOptions = { 
+  origin: (origin, callback) => { 
+    if (allowedOrigins.includes(origin) || !origin) { 
+      callback(null, true); 
+    } else { 
+      callback(new Error('Not allowed by CORS'));
+     } 
+    }, 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', 
+    credentials: true, 
+    optionsSuccessStatus: 200
+   }; 
+   
+app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 
