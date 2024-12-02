@@ -68,7 +68,7 @@ export const TodoWapper = () => {
   return (
     <div className="TodoWrapper">
       <h1>let's!</h1>
-      <p>helping you to achieve your goals</p>
+      <p><i>✦ your to-do list buddy. helping you get on track ✦</i></p>
       <TodoForm addTodo={addTodo} />
 
       <select onChange={handleFilterChange} value={filter}>
