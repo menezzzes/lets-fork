@@ -5,17 +5,18 @@ import { faPenToSquare, faTrash, faCheckSquare, faSquare } from '@fortawesome/fr
 export const Todo = ({ task, deleteTodo, editTodo, toggleComplete }) => {
   return (
     <div className="Todo">
-      <FontAwesomeIcon className="complete-icon" icon={task.completed ? faCheckSquare : faSquare}
-       onClick={() => toggleComplete(task._id)}/>
-        <p className={`${task.completed ? "completed" : "incompleted"}`}> {task.title} </p>
+      <FontAwesomeIcon
+        className="complete-icon"
+        icon={task.completed ? faCheckSquare : faSquare}
+        onClick={() => toggleComplete(task.id)} // Use task.id
+      />
+      <p className={`${task.completed ? "completed" : "incompleted"}`}>
+        {task.task} {/* Ensure this references the correct property */}
+      </p>
       <div>
-        <FontAwesomeIcon className="edit-icon" icon={faPenToSquare} onClick={() => editTodo(task._id)} />
-        <FontAwesomeIcon className="delete-icon" icon={faTrash} onClick={() => deleteTodo(task._id)} />
+        <FontAwesomeIcon className="edit-icon" icon={faPenToSquare} onClick={() => editTodo(task.id)} /> {/* Use task.id */}
+        <FontAwesomeIcon className="delete-icon" icon={faTrash} onClick={() => deleteTodo(task.id)} /> {/* Use task.id */}
       </div>
     </div>
   );
 };
-
-
-
-

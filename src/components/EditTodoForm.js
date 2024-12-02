@@ -1,24 +1,23 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
 
-export const EditTodoForm = ({ editTodo, task }) => { 
-  const [value, setValue] = useState(task.title); // Use task.title to match backend 
+export const EditTodoForm = ({ editTodo, task }) => {
+  const [value, setValue] = useState(task.task); // Use task.task
 
-  const handleSubmit = (e) => { 
+  const handleSubmit = (e) => {
     e.preventDefault();
-    editTodo(value); // Pass task._id instead of task.id
- };
+    editTodo(value, task.id); // Pass task.id
+  };
 
   return (
     <form onSubmit={handleSubmit} className="TodoForm">
-    <input type="text" 
-    value={value} 
-    onChange={(e) => setValue(e.target.value)} 
-    className="todo-input" 
-    placeholder="Update task"
-     />
-    <button type="submit" 
-    className='todo-btn'>Update Task</button>
-  </form>  
-
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        className="todo-input"
+        placeholder="Update task"
+      />
+      <button type="submit" className="todo-btn">Update Task</button>
+    </form>
   );
 };
