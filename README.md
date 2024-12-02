@@ -13,7 +13,7 @@
 
 ## Demo
 
-You can access the deployed application here: [Let’s on Netlify](https://buddylets.netlify.app/).
+You can access the deployed application [here]((https://letss.vercel.app/)).
 
 ---
 
